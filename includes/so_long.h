@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:21:22 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/09 18:14:21 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:23:25 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 #include "mlx.h"
+#include "../libs/libft/libft.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <limits.h>
@@ -37,12 +38,19 @@ typedef struct s_image
 	int		endian;
 }t_img;
 
+typedef struct s_player
+{
+	void	*playerImage;
+	int		x;
+	int		y;
+}t_player;
 
 typedef struct s_long
 {
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	t_player	player;
 	int		x;
 	int		y;
 }t_long;

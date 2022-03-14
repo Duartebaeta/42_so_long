@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:21:22 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/10 18:23:25 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:29:33 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ typedef struct s_long
 	int		y;
 }t_long;
 
-
+char	**read_map(char *filename);
+int		check_rows(char **map);
+int		check_middle(char *row);
+int		custom_error(int error, char **map);
 
 #endif

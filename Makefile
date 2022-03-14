@@ -12,6 +12,9 @@ PATH_LIBFT := $(PATH_LIBS)/libft
 
 BIN := ./$(NAME)
 SRCS := $(PATH_SRCS)/main.c \
+		$(PATH_SRCS)/read_map.c \
+		$(PATH_SRCS)/check_map.c \
+		$(PATH_SRCS)/custom_error.c
 
 OBJS := $(subst .c,.o,$(subst $(PATH_SRCS), $(PATH_OBJS), $(SRCS)))
 

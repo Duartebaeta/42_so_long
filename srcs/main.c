@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:31:01 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/10 19:24:11 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:47:05 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int key_hook(t_long game, int param)
 {
 	if (param == 17)
 	{
-		game.player.x += 200;
+		game.player.x += 32;
 		mlx_put_image_to_window(game.mlx, game.win, game.player.playerImage, game.player.x, game.player.y);
 	}
 	return 1;
@@ -30,8 +30,13 @@ int key_hook(t_long game, int param)
 
 int main(int argc, char **argv)
 {
+	char	**map;
 	t_long	*game;
 
+	(void) argc;
+	map = read_map(argv[1]);
+	if (custom_error(check_rows(map), map) == 0)
+		return (1);
 	game = (t_long *) malloc (sizeof(t_long));
 	if (!game)
 		return (0);

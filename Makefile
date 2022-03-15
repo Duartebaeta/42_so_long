@@ -14,7 +14,8 @@ BIN := ./$(NAME)
 SRCS := $(PATH_SRCS)/main.c \
 		$(PATH_SRCS)/read_map.c \
 		$(PATH_SRCS)/check_map.c \
-		$(PATH_SRCS)/custom_error.c
+		$(PATH_SRCS)/custom_error.c \
+		$(PATH_SRCS)/init.c
 
 OBJS := $(subst .c,.o,$(subst $(PATH_SRCS), $(PATH_OBJS), $(SRCS)))
 
@@ -45,4 +46,9 @@ fclean: clean
 		@rm -rf $(PATH_BUILD) $(NAME)
 		@make fclean -C $(PATH_LIBFT)
 
+exe: all
+		@./$(NAME) test.ber
+
 re: fclean all
+
+.PHONY: all exe

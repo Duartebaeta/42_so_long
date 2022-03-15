@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:31:01 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/14 18:47:05 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:38:24 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,23 @@ int close_window()
 	return 0;
 }
 
-int key_hook(t_long game, int param)
-{
-	if (param == 17)
-	{
-		game.player.x += 32;
-		mlx_put_image_to_window(game.mlx, game.win, game.player.playerImage, game.player.x, game.player.y);
-	}
-	return 1;
+int key_hook(int keycode, t_long *game)
+{	
+	if (keycode == W)
+		game->player.y -= 32;
+	if (keycode == S)
+		game->player.y += 32;
+	if (keycode == D)
+		game->player.x += 32;
+	if (keycode == A)
+		game->player.x -= 32;
+	if (keycode == ESC)
+		close_window();
+	mlx_put_image_to_window(game->mlx, game-> win, \
+	game->img.img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game-> win, \
+	game->player.playerImage, game->player.x, game->player.y);
+	return 0;
 }
 
 int main(int argc, char **argv)
@@ -35,19 +44,13 @@ int main(int argc, char **argv)
 
 	(void) argc;
 	map = read_map(argv[1]);
-	if (custom_error(check_rows(map), map) == 0)
+	if (custom_error(check_rows(map), map) < 0)
 		return (1);
-	game = (t_long *) malloc (sizeof(t_long));
-	if (!game)
-		return (0);
-	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, X_SIZE, Y_SIZE, "teste");
-	game->img.img = mlx_xpm_file_to_image(game->mlx, "map.xpm", &game->x, &game->y);
-	game->player.playerImage = mlx_xpm_file_to_image(game->mlx, "red.xpm", &game->player.x, &game->player.y);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->win, game->player.playerImage, game->player.x, game->player.y);
+	game = init_game();
+	init_params(game);
+	init_image(game);
 	mlx_hook(game->win, 17, 0L, close_window, &game);
-	mlx_key_hook(game->win, key_hook, &game);
+	mlx_key_hook(game->win, key_hook, game);
 	mlx_loop(game->mlx);
 
 	return 0;

@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:48:00 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/14 18:28:36 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:52:14 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	get_irregular_size(char **map)
 
 	counter = 0;
 	len = ft_strlen(map[0]);
-	while (len == (int)ft_strlen(map[counter]))
+	while (ft_strlen(map[counter]) == ft_strlen(map[counter + 1]) && map[counter + 1])
 		counter++;
 	return (counter + 1);
 }
@@ -64,7 +64,7 @@ int	custom_error(int error, char **map)
 	}
 	else if (error == -3)
 		ft_printf("Error\nNot enough specials");
-	if (error != 0)
-		return (1);
+	if (error < 0)
+		return (-1);
 	return (0);
 }

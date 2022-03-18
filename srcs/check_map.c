@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:25:54 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/14 18:11:33 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:10:23 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	check_middle(char *row)
 		return (-1);
 	while (row[counter] != '\0')
 	{
-		if (ft_strchr("01CEP", row[counter]) == NULL)
+		if (ft_strchr("01CEPX", row[counter]) == NULL)
 			return (-2);
 		if (row[counter] == 'C' || row[counter] == 'E' || row[counter] == 'P')
 			check_special(row[counter]);

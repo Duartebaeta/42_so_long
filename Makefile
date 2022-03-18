@@ -1,6 +1,6 @@
 NAME := so_long
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g -fsanitize=address
 LBX_FLAGS := -lmlx -framework OpenGL -framework AppKit
 
 PATH_INCLUDES := ./includes
@@ -15,7 +15,9 @@ SRCS := $(PATH_SRCS)/main.c \
 		$(PATH_SRCS)/read_map.c \
 		$(PATH_SRCS)/check_map.c \
 		$(PATH_SRCS)/custom_error.c \
-		$(PATH_SRCS)/init.c
+		$(PATH_SRCS)/init.c \
+		$(PATH_SRCS)/utils.c \
+		$(PATH_SRCS)/moves.c
 
 OBJS := $(subst .c,.o,$(subst $(PATH_SRCS), $(PATH_OBJS), $(SRCS)))
 

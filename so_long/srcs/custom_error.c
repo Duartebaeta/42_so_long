@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:48:00 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/21 17:00:22 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/21 18:09:23 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	custom_error(int error, char **map)
 		else
 			ft_printf("Error\nInvalid char on line %i col %i\n", counter, ret);
 	}
-	else if (error == -3)
-		ft_printf("Error\nNot enough specials");
+	else if (error == -4)
+		ft_printf("Error\nNot enough specials\n");
 	if (error < 0)
 		return (-1);
 	return (0);

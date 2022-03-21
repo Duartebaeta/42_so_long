@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:25:54 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/18 19:10:23 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:00:03 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_first_last(char *row)
 	int	counter;
 
 	counter = 0;
-	while(row[counter] != '\0')
+	while (row[counter] != '\0')
 	{
 		if (row[counter] != '1')
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 15:20:44 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/18 19:14:31 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/21 17:00:44 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_long	*init_game(char **map_plant)
 	game->collect_count = 0;
 	game->total_moves = 0;
 	game->map = map_plant;
-	game->win = mlx_new_window(game->mlx, (ft_strlen(map_plant[0]) * 32), (ft_biglen(map_plant) * 32), "teste");
+	game->win = mlx_new_window(game->mlx, (ft_strlen(map_plant[0]) * 32), \
+	(ft_biglen(map_plant) * 32), "teste");
 	game->img.x = 32;
 	game->img.y = 32;
 	game->player.x = -1;
@@ -102,25 +103,6 @@ static void	builder(t_map *map, t_long *game, int x, int y)
 	builder_2(map, game, x, y);
 }
 
-static void	animation(t_long *game, int keycode)
-{
-	if (keycode == D)
-		mlx_put_image_to_window(game->mlx, game->win, \
-		game->player.player_right, game->player.x, game->player.y);
-	else if (keycode == A)
-		mlx_put_image_to_window(game->mlx, game->win, \
-		game->player.player_left, game->player.x, game->player.y);
-	else if (keycode == S)
-		mlx_put_image_to_window(game->mlx, game->win, \
-		game->player.player_down, game->player.x, game->player.y);
-	else if (keycode == W)
-		mlx_put_image_to_window(game->mlx, game->win, \
-		game->player.player_up, game->player.x, game->player.y);
-	else
-		mlx_put_image_to_window(game->mlx, game->win, \
-		game->player.player_down, game->player.x, game->player.y);
-}
-
 void	build_map(t_long *game, int keycode)
 {
 	t_map		*map;
@@ -144,5 +126,5 @@ void	build_map(t_long *game, int keycode)
 	}
 	animation(game, keycode);
 	mlx_string_put(game->mlx, game->win, 0, 0, 0, ft_itoa(game->total_moves));
-	game->total_moves += 1;
+	free(map);
 }

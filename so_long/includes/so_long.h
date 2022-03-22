@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:21:22 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/21 17:06:00 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:56:48 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef enum s_key {
 	ESC = 53
 }	t_key;
 
-char	**read_map(char *filename);
+char	**read_map(int fd);
 int		check_rows(char **map);
 int		check_middle(char *row);
 int		custom_error(int error, char **map);

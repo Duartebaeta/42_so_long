@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 15:20:44 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/21 17:00:44 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:30:09 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_long	*init_game(char **map_plant)
 	game->total_moves = 0;
 	game->map = map_plant;
 	game->win = mlx_new_window(game->mlx, (ft_strlen(map_plant[0]) * 32), \
-	(ft_biglen(map_plant) * 32), "teste");
+	(ft_biglen(map_plant) * 32), "so_long");
 	game->img.x = 32;
 	game->img.y = 32;
 	game->player.x = -1;

@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:58:02 by dhomem-d          #+#    #+#             */
-/*   Updated: 2021/11/12 14:52:24 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2022/03/22 18:00:25 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	counter;
 
 	counter = 0;
+	if (s == NULL)
+		return (0);
 	while (s[counter] != '\0')
 		counter++;
 	return (counter);

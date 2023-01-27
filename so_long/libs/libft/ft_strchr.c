@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 16:57:21 by dhomem-d          #+#    #+#             */
-/*   Updated: 2021/11/11 16:44:45 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:30:45 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char	*ft_strchr(const char *s, int c)
 {
 	int	counter;
-	int	newcounter;
 
 	counter = 0;
-	newcounter = 0;
 	while (s[counter] != '\0')
 	{
 		if (s[counter] == (char)c)

@@ -6,7 +6,7 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:02:45 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/21 17:02:57 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:30:59 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ static char	*return_line(char **saved)
 char	*get_next_line(int fd)
 {
 	char		*buf;
-	static char	*saved[OPEN_MAX];
+	static char	*saved[FOPEN_MAX];
 	char		*temp;
 	int			ret;
 
-	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1)
+	if (fd < 0 || fd > FOPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);
 	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)

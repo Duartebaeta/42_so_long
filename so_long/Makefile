@@ -1,27 +1,59 @@
-NAME := so_long
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror
-LBX_FLAGS := -lmlx -framework OpenGL -framework AppKit
+### OPERATING SYSTEM ###
+OS			:=	$(shell uname -s)
 
-PATH_INCLUDES := ./includes
-PATH_LIBS := ./libs
-PATH_SRCS := ./srcs
-PATH_BUILD := build
-PATH_OBJS := $(PATH_BUILD)/objs
-PATH_LIBFT := $(PATH_LIBS)/libft
+### EXECUTABLE ###
+NAME		:=	cub3d
+
+### COMPILATION ###
+CC			:=	cc
+CFLAGS		:=	-Wall -Werror -Wextra -g
+
+### PATHS ###
+LIBFT_PATH	:=	./libs/libft/
+INCL_PATH	:=	includes/
+SRCS_PATH	:=	srcs/
+OBJS_PATH	:=	obj/
+ifeq ($(OS), Linux)
+	MLX_PATH:=	./minilibx-linux/
+else
+	MLX_PATH:=	./minilibx_macos/
+endif
+
+### SOURCE FILES ###
+SRC_NAME	:=	main.c
+#SRC_BONUS=	$(NAME)_bonus.c
+SRCS		:=	check_map.c \
+				custom_error.c \
+				init.c \
+				moves.c \
+				read_map.c \
+				utils.c
+SRCS_NAME	:=	$(addprefix $(SRCS_PATH), $(SRC_NAME) $(SRCS))
+#SRCS_BONUS=	$(addprefix $(SRCS_PATH), $(SRC_BONUS) $(SRCS))
+
+### OBJECT FILES ###
+OBJ_NAME	:=	$(SRC_NAME:.c=.o)
+#OBJ_BONUS	:=	$(SRC_BONUS:.c=.o)
+OBJS		:=	$(SRCS:.c=.o)
+OBJS_NAME	:=	$(addprefix $(OBJS_PATH), $(OBJ_NAME) $(OBJS))
+#OBJS_BONUS	:=	$(addprefix $(OBJS_PATH), $(OBJ_BONUS) $(OBJS))
+
+### LIBFT ###
+LIBFTMAKE	:=	make --silent -C $(LIBFT_PATH)
+LIBFT		:=	-L$(LIBFT_PATH) -lft
+
+### MLXLIB ###
+MLXMAKE		:=	make --silent -C $(MLX_PATH)
+ifeq ($(OS), Linux)
+	MLX		:=	-L$(MLX_PATH) -lmlx_Linux -lX11 -lXext -lm -lz -O3
+else
+	MLX		:=	-L$(MLX_PATH) -lmlx -lm -framework OpenGL -framework AppKit -O3
+endif
+
+### INCLUDES ###
+INC			:=	-I $(LIBFT_PATH)$(INCL_PATH) -I $(INCL_PATH) -I $(MLX_PATH)
+
 PATH_IMAGES := ./images
-
-BIN := ./$(NAME)
-SRCS := $(PATH_SRCS)/main.c \
-		$(PATH_SRCS)/read_map.c \
-		$(PATH_SRCS)/check_map.c \
-		$(PATH_SRCS)/custom_error.c \
-		$(PATH_SRCS)/init.c \
-		$(PATH_SRCS)/utils.c \
-		$(PATH_SRCS)/moves.c
-
-OBJS := $(subst .c,.o,$(subst $(PATH_SRCS), $(PATH_OBJS), $(SRCS)))
-
 IMAGES := Enemy_front.xpm \
 		grass_1.xpm \
 		key.xpm \
@@ -34,41 +66,64 @@ IMAGES := Enemy_front.xpm \
 		tree.xpm \
 		water_1.xpm
 
-LIBFT = $(PATH_LIBFT)/libft.a
+### COLOURS ###
+ifeq ($(OS), Linux)
+	ECHO	:=	echo "
+else
+	ECHO	:=	echo "
+endif
+GREEN= $(addprefix $(ECHO), \033[1;32m)
+RED= $(addprefix $(ECHO), \033[1;31m)
+DEFAULT= \033[0m"
 
-all:$(BIN)
+### IMPLICT RULES ###
+%.o: %.c
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(BIN): $(OBJS) | $(LIBFT) $(IMAGES)
-		@$(CC) $(CFLAGS) $(LBX_FLAGS) -o $(@) $^ -L$(PATH_LIBFT) -lft -I$(PATH_INCLUDES)
-		@echo "\033[33m[Moving Images]\033[0m"
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-$(PATH_OBJS)/%.o: $(PATH_SRCS)/%.c | $(PATH_BUILD)
-		@echo "\033[33m[CREATING ${@F}]\033[0m"
-		@$(CC) $(CFLAGS) -c $(^) -o $@
+### ACTIVE RULES ###
+all: $(NAME) ## compiles cub3d with mandatory requirements
 
-$(LIBFT):
-		@make -C $(PATH_LIBFT)
+$(NAME): $(OBJS_PATH) $(OBJS_NAME) $(IMAGES)
+	@$(LIBFTMAKE)
+	@$(MLXMAKE)
+	@$(CC) $(CFLAGS) $(OBJS_NAME) $(INC) $(LIBFT) $(MLX) -o $(NAME)
+	@$(GREEN)$(NAME) Program created$(DEFAULT)
 
-$(PATH_BUILD):
-		@mkdir -p $(PATH_BUILD)
-		@mkdir -p $(PATH_OBJS)
+$(OBJS_PATH):
+	@mkdir -p $@
 
 $(IMAGES):
 		@mv $(PATH_IMAGES)/*.xpm ./
 
-clean:
-		@echo "\033[38;5;1m[REMOVING OBJECTS]\033[0m"
-		@rm -rf $(PATH_OBJS)
+clean: ## removes object files
+	@make $@ --silent -C $(LIBFT_PATH)
+	@rm -rf $(OBJS_PATH)
+	@$(RED)Object files removed$(DEFAULT)
 
-fclean: clean
-		@echo "\033[38;5;1m[REMOVING BINARIES]\033[0m"
-		@rm -rf $(PATH_BUILD) $(NAME)
-		@make fclean -C $(PATH_LIBFT)
-		@mv ./*.xpm $(PATH_IMAGES)/
+fclean: clean ## removes object files and binary
+	@make $@ --silent -C $(LIBFT_PATH)
+	@$(RED)Libft removed$(DEFAULT)
+	@rm -f $(NAME)
+	@$(RED)$(NAME) Program removed$(DEFAULT)
+	@mv ./*.xpm $(PATH_IMAGES)/
 
-exe: all
-		@./$(NAME) map.ber
+re: fclean all ## recompiles cub3d
 
-re: fclean all
+### NORMINETTE ###
+norm: ## checks norminette requirements
+	@norminette -R CheckForbiddenSourceHeader $(SRCS_PATH)
+	@norminette -R CheckForbiddenSourceHeader $(INCL_PATH)
+	@norminette -R CheckDefine $(SRCS_PATH)
+	@norminette -R CheckDefine $(INCL_PATH)
 
-.PHONY: all exe
+### HELP ###
+help:  ## show this help
+	@echo "usage: make [target]"
+	@echo ""
+	@egrep "^(.+)\:\ .*##\ (.+)" ${MAKEFILE_LIST} | sed 's/:.*##/#/' | column -t -c 2 -s '#'
+
+### PHONY RULE ###
+.PHONY:	all help bonus clean fclean re norm

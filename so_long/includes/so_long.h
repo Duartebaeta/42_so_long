@@ -6,14 +6,14 @@
 /*   By: dhomem-d <dhomem-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:21:22 by dhomem-d          #+#    #+#             */
-/*   Updated: 2022/03/22 17:56:48 by dhomem-d         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:48:35 by dhomem-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include "../libs/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
@@ -71,11 +71,11 @@ typedef struct s_long
 }t_long;
 
 typedef enum s_key {
-	W = 13,
-	S = 1,
-	A = 0,
-	D = 2,
-	ESC = 53
+	W = 119,
+	S = 115,
+	A = 97,
+	D = 100,
+	ESC = 65307
 }	t_key;
 
 char	**read_map(int fd);
